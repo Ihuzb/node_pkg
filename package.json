@@ -1,0 +1,25 @@
+{
+  "name": "node_pkg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server_bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ihuzb/node_pkg.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ihuzb/node_pkg/issues"
+  },
+  "homepage": "https://github.com/Ihuzb/node_pkg#readme",
+  "dependencies": {
+    "async": "^3.2.4",
+    "file-save": "^0.2.0",
+    "generic-pool": "^3.9.0",
+    "puppeteer": "^19.6.3"
+  }
+}
