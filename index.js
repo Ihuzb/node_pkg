@@ -1,4 +1,5 @@
 const login = require('./server_bin/index')
+const {urlType} = require('./public/public')
 const get_content = require('./server/get_content')
 const readline = require('readline').createInterface({
     input: process.stdin,
@@ -34,14 +35,23 @@ let question = () => {
 }
 let urlInfo = (type) => {
     return new Promise((re, rj) => {
-        readline.question(`\n0:退出
+        readline.question(`\n0:退出当前
         \r输入文章地址：`,
             async url => {
                 if (url == 0) {
                     await question();
                 } else if (url) {
-                    await get_content(url, type);
-                    await urlInfo(type);
+                    let urlTypeInfo = urlType(url);
+                    if (urlTypeInfo == 0) {
+                        console.log('地址错误请重新输入！！');
+                        await urlInfo(type);
+                    } else if (urlTypeInfo != type) {
+                        console.log('地址与所选平台不符合，请重新输入！！');
+                        await urlInfo(type);
+                    } else if (urlTypeInfo == type) {
+                        await get_content(url, type);
+                        await urlInfo(type);
+                    }
                 } else {
                     await question();
                 }
@@ -49,28 +59,10 @@ let urlInfo = (type) => {
     })
 }
 question().then(res => {
+
 })
 //close事件监听
 readline.on('close', function () {
-    console.log('----end----');
+    console.log('\n----end----');
     process.exit(0);
 });
-//注册line事件
-// readline.on('line',function (line){
-//     switch(line.trim()){
-//         case 1:
-//             readline.write('晋江平台');
-//             console.log('晋江平台');
-//             break;
-//         case 2:
-//             readline.write('通用平台');
-//             console.log('通用平台');
-//             break;
-//         case 0:
-//             readline.close();
-//             break;
-//         default:
-//             console.log('没有找到命令');
-//             break;
-//     }
-// });

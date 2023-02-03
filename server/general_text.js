@@ -1,4 +1,4 @@
-module.exports = (url) => {
+module.exports = (url, type) => {
     return new Promise(async (re, rj) => {
         let browser = global.browser;
         if (!browser) {
@@ -10,18 +10,27 @@ module.exports = (url) => {
             'Accept-Encoding': 'gzip'
         });
         const status = await page.goto(url, {
-            waitUntil: ['load', 'domcontentloaded', 'networkidle0'],
+            waitUntil: ['load', 'domcontentloaded'],
             'timeout': 1000 * 100 //这里超时是60s
         });
         if (!status.ok) {
             throw new Error('cannot open google.com')
         }
-
-        let text = await page.evaluate(async () => {
-            return document.querySelector("#content").innerText;
-        });
+        let text = '';
+        if (type == 2) {
+            text = await page.evaluate(async () => {
+                return document.querySelector("#content").innerText;
+            });
+        } else if (type == 1) {
+            text = await page.evaluate(async () => {
+                let readsmall = document.querySelector(".noveltext .readsmall")
+                if (readsmall) {
+                    readsmall.remove();
+                }
+                return document.querySelector(".noveltext").innerText;
+            });
+        }
         await page.close();
-
         re(text);
     })
 }

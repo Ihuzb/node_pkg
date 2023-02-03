@@ -12,6 +12,9 @@ module.exports = (bookInfo) => {
                     console.log('写入完成');
                     re();
                 });
+        } else {
+            console.log('无内容无法保存！');
+            re();
         }
     })
 }

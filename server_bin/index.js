@@ -4,7 +4,7 @@ const get_content = require("../server/get_content");
 const pool = initPuppeteerPool({ // 全局只应该被初始化一次
     puppeteerArgs: {
         ignoreHTTPSErrors: true,
-        headless: true,
+        headless: false,
         args: [
             '-–disable-dev-shm-usage',
             '-–disable-setuid-sandbox',
@@ -17,10 +17,10 @@ const pool = initPuppeteerPool({ // 全局只应该被初始化一次
         //pipe: true, // 不使用 websocket
     }
 });
-let test = async () => {
-    await login(pool, 2)
-    await get_content('https://www.qqxsnew.net/10/10917/', 2)
-}
+// let test = async () => {
+//     await login(pool, 1)
+//     await get_content('https://www.jjwxc.net/onebook.php?novelid=2626938', 1)
+// }
 // test();
 module.exports = async (type) => {
     return await login(pool, type);

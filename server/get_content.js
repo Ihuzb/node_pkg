@@ -1,4 +1,5 @@
 const general = require('./general')
+const jinjiang = require('./jinjiang')
 const general_list = require("./general_list");
 const save_file = require("./save_file");
 module.exports = async (url, type) => {
@@ -19,17 +20,20 @@ module.exports = async (url, type) => {
         throw new Error('cannot open google.com')
     }
     await page.waitForTimeout(1000);
+    console.log('打开文章成功！！');
+    let bookInfo = {};
     if (type == 2) {
-        console.log('打开文章成功！！');
-        let bookInfo = await general(page);
-        if (bookInfo.list.length) {
-            console.log('获取目录成功！！');
-            let bookContent = await general_list(bookInfo)
-            bookInfo['bookContent'] = bookContent;
-            await save_file(bookInfo);
-        } else {
-            console.log('获取目录失败！！');
-        }
+        bookInfo = await general(page);
+    } else if (type == 1) {
+        bookInfo = await jinjiang(page);
+    }
+    if (bookInfo.list.length) {
+        console.log('获取目录成功！！');
+        let bookContent = await general_list(bookInfo, type)
+        bookInfo['bookContent'] = bookContent;
+        await save_file(bookInfo);
+    } else {
+        console.log('获取目录失败！！');
     }
     await page.close();
     Promise.resolve();

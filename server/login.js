@@ -24,9 +24,25 @@ module.exports = async (pool, type) => {
                 throw new Error('cannot open google.com')
             }
             // await page.waitForNavigation();
+            if (type == 1) {
+                const readerid = await page.$(".readerid");
+                if (!readerid) {
+                    await page.waitForSelector("#jj_login");
+                    const jj_login = await page.$("#jj_login");
+                    await jj_login.click();
+                    await page.waitForTimeout(1000);
+                    await page.type('#login_form_ajax input[name="loginname"]', userInfo.username);
+                    await page.type('#login_form_ajax input[name="loginpassword"]', userInfo.password);
+                    const check = await page.$("#login_registerRule");
+                    await check.click();
+                    await page.waitForSelector(".readerid");
+                }
+                re();
+            } else {
+                re();
+            }
             global.browser = browser;
             global.page = page;
-            re();
         })
     })
 
