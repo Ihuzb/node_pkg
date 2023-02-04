@@ -10,7 +10,7 @@ module.exports = (url, type) => {
             'Accept-Encoding': 'gzip'
         });
         const status = await page.goto(url, {
-            waitUntil: ['load', 'domcontentloaded'],
+            waitUntil: ['domcontentloaded'],
             'timeout': 1000 * 100 //这里超时是60s
         });
         if (!status.ok) {
