@@ -19,7 +19,7 @@ const pool = initPuppeteerPool({ // 全局只应该被初始化一次
 });
 // let test = async () => {
 //     await login(pool, 1)
-//     await get_content('https://www.jjwxc.net/onebook.php?novelid=2626938', 1)
+//     await get_content('https://www.jjwxc.net/onebook.php?novelid=108137', 1)
 // }
 // test();
 module.exports = async (type) => {

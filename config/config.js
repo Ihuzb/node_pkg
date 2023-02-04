@@ -13,7 +13,9 @@ module.exports = {
     // 知乎用户信息
     userInfo: {
         username: '13335103325',
-        password: 'z425353361'
+        // username: '15166089918',
+        password: 'z425353361',
+        // password: 'hzb136877',
     },
     //阿布云
     proxyUrl: 'http://http-dyn.abuyun.com:9020',
